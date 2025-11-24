@@ -360,9 +360,9 @@ export default function Home() {
           id="about"
           className="mt-16 grid gap-10 text-center lg:grid-cols-[1.2fr_0.8fr] lg:text-left xl:place-items-center"
         >
-          <div>
+          <div className="info-panel rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg shadow-slate-900/10 dark:border-white/10 dark:bg-slate-900/70">
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">Experience</h2>
-            <div className="mt-6 space-y-8">
+            <div className="mt-6 space-y-8 text-left">
               {experiences.map((exp) => (
                 <article key={exp.role} className="glass-surface p-6">
                   <div className="flex flex-wrap items-center justify-between gap-2">

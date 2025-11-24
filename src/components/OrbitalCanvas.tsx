@@ -22,8 +22,15 @@ export default function OrbitalCanvas() {
     if (!containerRef.current) return;
     const container = containerRef.current;
 
+    const getParticleBudget = () => {
+      if (typeof window === "undefined") return PARTICLE_COUNT;
+      if (window.innerWidth < 640) return 500;
+      if (window.innerWidth < 1024) return 900;
+      return PARTICLE_COUNT;
+    };
+
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     const initialBackground = getBackgroundColor();
@@ -34,11 +41,12 @@ export default function OrbitalCanvas() {
     const camera = new THREE.PerspectiveCamera(55, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 60;
 
+    const particleCount = getParticleBudget();
     const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(PARTICLE_COUNT * 3);
-    const speeds = new Float32Array(PARTICLE_COUNT);
+    const positions = new Float32Array(particleCount * 3);
+    const speeds = new Float32Array(particleCount);
 
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    for (let i = 0; i < particleCount; i++) {
       const radius = 20 + Math.random() * 18;
       const angle = Math.random() * Math.PI * 2;
       positions[i * 3] = Math.cos(angle) * radius;
@@ -63,6 +71,7 @@ export default function OrbitalCanvas() {
     let animationFrame: number;
     const pointer = new THREE.Vector3(0, 0, 0);
     let pointerActive = false;
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
 
     const onResize = () => {
       const { clientWidth, clientHeight } = container;
@@ -86,7 +95,7 @@ export default function OrbitalCanvas() {
 
     const animate = () => {
       const positionAttribute = geometry.getAttribute("position") as THREE.BufferAttribute;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
+      for (let i = 0; i < particleCount; i++) {
         const x = positionAttribute.getX(i);
         const z = positionAttribute.getZ(i);
         const radius = Math.sqrt(x * x + z * z);
@@ -126,15 +135,19 @@ export default function OrbitalCanvas() {
     container.appendChild(renderer.domElement);
     window.addEventListener("resize", onResize);
     window.addEventListener(THEME_EVENT, applyThemeColors);
-    container.addEventListener("pointermove", onPointerMove);
-    container.addEventListener("pointerleave", onPointerLeave);
+    if (isFinePointer) {
+      container.addEventListener("pointermove", onPointerMove);
+      container.addEventListener("pointerleave", onPointerLeave);
+    }
 
     return () => {
       cancelAnimationFrame(animationFrame);
       window.removeEventListener("resize", onResize);
       window.removeEventListener(THEME_EVENT, applyThemeColors);
-      container.removeEventListener("pointermove", onPointerMove);
-      container.removeEventListener("pointerleave", onPointerLeave);
+      if (isFinePointer) {
+        container.removeEventListener("pointermove", onPointerMove);
+        container.removeEventListener("pointerleave", onPointerLeave);
+      }
       geometry.dispose();
       material.dispose();
       renderer.dispose();

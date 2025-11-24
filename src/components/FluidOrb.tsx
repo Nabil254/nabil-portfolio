@@ -40,7 +40,7 @@ export default function FluidOrb() {
     const container = containerRef.current;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
@@ -79,7 +79,6 @@ export default function FluidOrb() {
     let isDragging = false;
     let lastPointer: { x: number; y: number } | null = null;
     let hasUserDragged = false;
-
     const onPointerMove = (event: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       if (!rect) return;
