@@ -54,7 +54,7 @@ const projectGroups: ProjectGroup[] = [
           "Crafted a VR putting experience with telemetry capture for Ecco Golf, showcased during HSBC Women's World Championship in Singapore.",
         impact:
           "Merged immersive storytelling with analytics leaderboard, giving event stakeholders measurable engagement insights.",
-        videoUrl: "",
+        videoUrl: "https://drive.google.com/drive/u/0/folders/1rR4xTYmdBh2ZLhDGtMR4TWj7QBnRNB4d",
       },
       {
         title: "Portal with ManoMotion",
@@ -63,7 +63,7 @@ const projectGroups: ProjectGroup[] = [
           "Built an AR portal demo where the ManoMotion hand-tracking SDK reads circular wrist rotations and pinch-to-drag gestures—letting users channel a Doctor Strange-style motion to carve portals, swipe between realms, and fan open spatial HUDs.",
         impact:
           "Demonstrates intuitive gesture UX—users can literally reach out to manipulate spatial interfaces without controllers.",
-        videoUrl: "https://drive.google.com/drive/u/0/folders/1z_-MutsPd3dPdmyCrXHa3vmOU_tOhhHv",
+        videoUrl: "https://drive.google.com/file/d/1wv3b5Jx5NRwTMRhTlw1RlN1O-BbbbEUj/view",
       },
       {
         title: "Feature Tracking Web AR",
@@ -72,7 +72,7 @@ const projectGroups: ProjectGroup[] = [
           "Shipped a browser-based AR experience where AR.js feature tracking locks holographic UI rings to printed markers, letting users orbit content without native installs.",
         impact:
           "Showcases how lightweight WebAR pipelines can deliver stable tracking, branded hero shots, and rapid-share demos straight from a URL—perfect for events or pitches.",
-        videoUrl: "https://drive.google.com/drive/u/0/folders/1z_-MutsPd3dPdmyCrXHa3vmOU_tOhhHv",
+        videoUrl: "https://drive.google.com/file/d/12C0WAzt9p4r0_IiUxkRxWwrxNHXyfpAl/view",
       },
     ],
   },
